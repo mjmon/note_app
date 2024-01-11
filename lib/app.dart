@@ -22,7 +22,7 @@ class App extends StatelessWidget {
         },
         behavior: HitTestBehavior.translucent,
         child: MaterialApp.router(
-          debugShowCheckedModeBanner: true,
+          debugShowCheckedModeBanner: false,
           title: "Note App",
           routerConfig: appRouter,
         ),
