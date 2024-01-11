@@ -2,13 +2,17 @@ import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:noteapp/blocs/note_list/note_list_bloc.dart';
 import 'package:noteapp/database/app_database.dart';
 import 'package:noteapp/injection.dart';
-import 'package:noteapp/ui/note_list/widgets/note_list_display.dart';
+import 'package:noteapp/models/note/note.dart';
+import 'package:noteapp/pages/create_edit_note/create_edit_note_page.dart';
+import 'package:noteapp/pages/note_list/widgets/note_list_display.dart';
 
 class NoteListPage extends StatefulWidget {
   const NoteListPage({super.key});
+  static const String path = "/";
 
   @override
   State<NoteListPage> createState() => _NoteListPageState();
@@ -56,7 +60,11 @@ class _NoteListPageState extends State<NoteListPage> {
           },
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            // pass empty note here which means this will be a new note
+            GoRouter.of(context)
+                .push(CreateEditNotePage.path, extra: Note.empty());
+          },
           tooltip: 'Create Note',
           child: const Icon(Icons.add),
         ));

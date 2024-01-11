@@ -12,7 +12,7 @@ class Note with _$Note {
       required DateTime? createDate,
       required DateTime? updateDate}) = _Note;
 
-  factory Note.initial() => const Note(
+  factory Note.empty() => const Note(
       id: null, title: '', content: '', createDate: null, updateDate: null);
 
   // convert a NoteEntry to Note object
