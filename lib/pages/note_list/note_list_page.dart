@@ -73,14 +73,15 @@ class _NoteListPageState extends State<NoteListPage> {
             },
           ),
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             // pass empty note here which means this will be a new note
             GoRouter.of(context)
                 .push(CreateEditNotePage.path, extra: Note.empty());
           },
           tooltip: 'Create Note',
-          child: const Icon(Icons.add),
+          icon: const Icon(Icons.edit_note),
+          label: const Text("Create Note"),
         ));
   }
 }
