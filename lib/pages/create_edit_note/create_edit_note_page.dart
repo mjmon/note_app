@@ -22,6 +22,17 @@ class _CreateEditNotePageState extends State<CreateEditNotePage> {
   final formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.note != Note.empty()) {
+      // initialize the NoteForm
+      context
+          .read<NoteFormBloc>()
+          .add(NoteFormEvent.setOriginalNote(note: widget.note));
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<SubmitNoteBloc, SubmitNoteState>(
       listenWhen: (previous, current) => previous != current,
@@ -52,6 +63,7 @@ class _CreateEditNotePageState extends State<CreateEditNotePage> {
                 child: Column(
                   children: [
                     TextFormField(
+                      initialValue: widget.note.title,
                       validator: (value) => genericValidator("Title", value),
                       onChanged: (value) {
                         context.read<NoteFormBloc>().add(
@@ -65,6 +77,7 @@ class _CreateEditNotePageState extends State<CreateEditNotePage> {
                     ),
                     const Gap(10),
                     TextFormField(
+                      initialValue: widget.note.content,
                       validator: (value) => genericValidator("Content", value),
                       onChanged: (value) {
                         context.read<NoteFormBloc>().add(

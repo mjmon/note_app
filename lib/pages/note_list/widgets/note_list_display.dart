@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:noteapp/models/note/note.dart';
+import 'package:noteapp/pages/create_edit_note/create_edit_note_page.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NoteListDisplay extends StatelessWidget {
@@ -17,6 +19,10 @@ class NoteListDisplay extends StatelessWidget {
             final note = notes.elementAt(index);
             return Card(
               child: ListTile(
+                onTap: () {
+                  GoRouter.of(context)
+                      .push(CreateEditNotePage.path, extra: note);
+                },
                 title: Text(
                   note.title,
                 ),
