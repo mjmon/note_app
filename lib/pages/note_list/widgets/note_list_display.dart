@@ -1,10 +1,8 @@
 import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:noteapp/blocs/delete_note/bloc/delete_note_bloc.dart';
 import 'package:noteapp/models/note/note.dart';
-import 'package:noteapp/pages/create_edit_note/create_edit_note_page.dart';
 import 'package:noteapp/pages/note_list/widgets/note_item.dart';
 
 class NoteListDisplay extends StatelessWidget {
