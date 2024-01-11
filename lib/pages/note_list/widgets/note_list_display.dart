@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:noteapp/blocs/delete_note/bloc/delete_note_bloc.dart';
 import 'package:noteapp/models/note/note.dart';
 import 'package:noteapp/pages/create_edit_note/create_edit_note_page.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:noteapp/pages/note_list/widgets/note_item.dart';
 
 class NoteListDisplay extends StatelessWidget {
   const NoteListDisplay({super.key, required this.notes});
@@ -17,38 +19,14 @@ class NoteListDisplay extends StatelessWidget {
           itemCount: notes.length,
           itemBuilder: (context, index) {
             final note = notes.elementAt(index);
-            return Card(
-              child: ListTile(
-                onTap: () {
-                  GoRouter.of(context)
-                      .push(CreateEditNotePage.path, extra: note);
-                },
-                title: Text(
-                  note.title,
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(note.content),
-                    Builder(builder: (context) {
-                      String txt = "";
-                      if (note.updateDate!.isAfter(note.createDate!)) {
-                        txt = "Updated ${timeago.format(note.updateDate!)}";
-                      } else {
-                        txt = "Created ${timeago.format(note.createDate!)}";
-                      }
-
-                      return Text(
-                        txt,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(color: Colors.grey),
-                      );
-                    })
-                  ],
-                ),
-              ),
+            return NoteItem(
+              note: note,
+              onDelete: () {
+                //handle delete
+                context
+                    .read<DeleteNoteBloc>()
+                    .add(DeleteNoteEvent.deleteNote(noteId: note.id!));
+              },
             );
           });
     } else {

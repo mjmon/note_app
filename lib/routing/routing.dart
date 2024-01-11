@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:noteapp/blocs/delete_note/bloc/delete_note_bloc.dart';
 import 'package:noteapp/blocs/note_form/note_form_bloc.dart';
 import 'package:noteapp/blocs/submit_note/submit_note_bloc.dart';
 import 'package:noteapp/injection.dart';
@@ -12,7 +13,11 @@ final appRouter = GoRouter(
   routes: [
     GoRoute(
       path: NoteListPage.path,
-      builder: (context, state) => const NoteListPage(),
+      builder: (context, state) => MultiBlocProvider(providers: [
+        BlocProvider(
+            create: (context) =>
+                DeleteNoteBloc(apiService: getIt<IApiService>())),
+      ], child: const NoteListPage()),
     ),
     GoRoute(
       path: CreateEditNotePage.path,
